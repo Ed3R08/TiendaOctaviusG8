@@ -3,7 +3,6 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-src/main/resources/firebase/tienda-651a4-firebase-adminsdk-fbsvc-2e1e701c17.json
 
 ### STS ###
 .apt_generated

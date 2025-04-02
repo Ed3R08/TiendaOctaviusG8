@@ -7,7 +7,8 @@
         <meta charset="UTF-8"/>
         <link rel="icon" type="image/png" sizes="16x16" href="/fav/favicon-16x16.png"/>
         <link rel="icon" type="image/png" sizes="32x32" href="/fav/favicon-32x32.png"/>
-   
+        <link rel="icon" type="image/png" sizes="96x96" href="/fav/favicon-96x96.png"/>
+        <link rel="icon" type="image/png" sizes="256x256" href="/fav/favicon-256x256.png"/>
         <script th:src="@{/js/rutinas.js}"></script>
         <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
         <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.css}"/>
@@ -19,7 +20,7 @@
     </head>
     <body>
         <header th:fragment="header" class="header">
-            <nav class="navbar navbar-expand-sm navbar-dark bg-black p-0">
+            <nav class="navbar navbar-expand-sm navbar-light bg-info p-0">
                 <div class="container">
                     <a th:href="@{/}" class="navbar-brand">[[#{aplicacion.titulo}]]</a>
                     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -114,7 +115,7 @@
                     </div>
                 </div>
             </nav>
-            <section id="main-header" class="py-2 bg-success text-red">
+            <section id="main-header" class="py-2 bg-primary text-red">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">

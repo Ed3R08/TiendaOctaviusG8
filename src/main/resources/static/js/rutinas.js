@@ -10,4 +10,8 @@ function readURL(input) {
         };
         lector.readAsDataURL(input.files[0]);
     }
+
+
+
+
 }
