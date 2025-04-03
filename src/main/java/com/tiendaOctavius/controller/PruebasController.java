@@ -46,9 +46,6 @@ public class PruebasController {
         return "/pruebas/listado2";
     }
 
-    
-
-
 
     @PostMapping("/query1")
     public String query1(
@@ -56,32 +53,6 @@ public class PruebasController {
             @RequestParam("precioSup") double precioSup,
             Model model) {
         var lista = productoService.consultaAmpliada(precioInf, precioSup);
-        model.addAttribute("productos", lista);
-        model.addAttribute("precioInf", "precioInf");
-        model.addAttribute("precioSup", "precioSup");
-
-        return "/pruebas/listado2";
-    }
-
-    @PostMapping("/query2")
-    public String query2(
-            @RequestParam("precioInf") double precioInf,
-            @RequestParam("precioSup") double precioSup,
-            Model model) {
-        var lista = productoService.consultaJPQL(precioInf, precioSup);
-        model.addAttribute("productos", lista);
-        model.addAttribute("precioInf", "precioInf");
-        model.addAttribute("precioSup", "precioSup");
-
-        return "/pruebas/listado2";
-    }
-
-    @PostMapping("/query3")
-    public String query3(
-            @RequestParam("precioInf") double precioInf,
-            @RequestParam("precioSup") double precioSup,
-            Model model) {
-        var lista = productoService.consultaSQL(precioInf, precioSup);
         model.addAttribute("productos", lista);
         model.addAttribute("precioInf", "precioInf");
         model.addAttribute("precioSup", "precioSup");
