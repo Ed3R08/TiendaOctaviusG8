@@ -231,3 +231,124 @@ INSERT INTO constante (atributo, valor) VALUES
   ('paypal.mode', 'sandbox'),
   ('urlPaypalCancel', 'http://localhost/payment/cancel'),
   ('urlPaypalSuccess', 'http://localhost/payment/success');
+
+USE tiendaOctavius;
+UPDATE usuario
+SET 
+  username = 'Eder',
+  nombre = 'Eder',
+  apellidos = 'Serrano Valerio',
+  correo = 'ederseva@gmail.com',
+  telefono = '83199289',
+  ruta_imagen = 'https://i.imgur.com/5S1OuYL.jpg'
+WHERE id_usuario = 1;
+
+insert into ruta_permit (patron) values ('/fav/**');
+SET SQL_SAFE_UPDATES = 0;
+
+-- Actualiza la imagen para la categoría 'Servicios'
+UPDATE categoria 
+SET ruta_imagen = 'https://i.imgur.com/ZFt2HRb.jpg'
+WHERE descripcion = 'Servicios';
+
+-- Actualiza la imagen para la categoría 'Químicos'
+UPDATE categoria 
+SET ruta_imagen = 'https://i.imgur.com/ZFt2HRb.jpg'
+WHERE descripcion = 'Químicos';
+
+-- Actualiza la imagen para la categoría 'Accesorios'
+UPDATE categoria 
+SET ruta_imagen = 'https://i.imgur.com/mj0gYIx.jpg'
+WHERE descripcion = 'Accesorios';
+
+-- Actualiza la imagen para la categoría 'Equipos'
+UPDATE categoria 
+SET ruta_imagen = 'https://i.imgur.com/qV97892.jpg'
+WHERE descripcion = 'Equipos';
+
+
+SET SQL_SAFE_UPDATES = 1;
+-- Desactiva el modo seguro para esta sesión (opcional)
+SET SQL_SAFE_UPDATES = 0;
+
+-- Para la categoría "Servicios"
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/ZFt2HRb.jpg'
+WHERE descripcion = 'Mantenimiento'
+LIMIT 1;
+
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/CB2H0XY.jpg'
+WHERE descripcion = 'Limpieza'
+LIMIT 1;
+
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/sisEdjN.jpg'
+WHERE descripcion = 'Visita Técnica'
+LIMIT 1;
+
+-- Para la categoría "Químicos"
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/yUnRO97.jpg'
+WHERE descripcion = 'Cloro Granulado'
+LIMIT 1;
+
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/A7MS0u3.jpg'
+WHERE descripcion = 'Cloro en Tabletas'
+LIMIT 1;
+
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/qmNhWJ2.jpg'
+WHERE descripcion = 'Alguicida'
+LIMIT 1;
+
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/qP0Ew8p.jpg'
+WHERE descripcion = 'Clarificador'
+LIMIT 1;
+
+-- Para la categoría "Accesorios"
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/0AloD4A.jpg'
+WHERE descripcion = 'Boquillas de Retorno'
+LIMIT 1;
+
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/7jaExhD.jpg'
+WHERE descripcion = 'Hidrojets'
+LIMIT 1;
+
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/PcKDLFI.jpg'
+WHERE descripcion = 'Parrillas de Fondo'
+LIMIT 1;
+
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/AnYNpT6.jpg'
+WHERE descripcion = 'Skimmer'
+LIMIT 1;
+
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/JX0BtQH.jpg'
+WHERE descripcion = 'Rebalse'
+LIMIT 1;
+
+-- Para la categoría "Equipos"
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/dhjw4Cm.jpg'
+WHERE descripcion = 'Bomba de Agua'
+LIMIT 1;
+
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/0WqE6yU.jpg'
+WHERE descripcion = 'Filtro de Piscina'
+LIMIT 1;
+
+UPDATE producto 
+SET ruta_imagen = 'https://i.imgur.com/y5qAZYw.jpg'
+WHERE descripcion = 'Clorinador'
+LIMIT 1;
+
+-- Vuelve a activar el modo seguro (opcional)
+SET SQL_SAFE_UPDATES = 1;
