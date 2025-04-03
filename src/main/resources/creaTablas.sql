@@ -205,6 +205,12 @@ INSERT INTO ruta_permit (patron) VALUES
   ('/registro/**'),
   ('/js/**'),
   ('/webjars/**');
+----------------------------------------------------------------------
+--Se debe anadir de mas el de fav para el icono de la parte superior
+----------------------------------------------------------------------
+INSERT INTO ruta_permit (patron) VALUES 
+  ('/fav/**')
+
 
 -----------------------------------------------------------
 -- 9. Crear la tabla "constante"
