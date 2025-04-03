@@ -16,65 +16,123 @@
         <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
         <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
+        <!-- Estilos personalizados -->
+        <style>
+            body {
+                background-color: #e0f7fa; /* Fondo acuático suave */
+                color: #004d40; /* Texto oscuro en general para buen contraste */
+            }
 
+            .navbar {
+                background-color: #00796b; /* Azul acuático para la barra de navegación */
+            }
+
+            .navbar-brand, .nav-link {
+                color: #ffffff !important; /* Texto blanco en la navbar */
+            }
+
+            .navbar-toggler-icon {
+                background-color: #ffffff; /* Icono del menú hamburguesa en blanco */
+            }
+
+            .navbar-nav .nav-item:hover {
+                background-color: #004d40; /* Sombra en el hover */
+            }
+
+            .header {
+                background: linear-gradient(to right, #009688, #00bcd4); /* Degradado de azul y aqua */
+                color: white;
+                border-radius: 10px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+                padding: 20px;
+            }
+
+            .nav-link:hover {
+                color: #80deea; /* Color más claro en el hover */
+            }
+
+            .footer {
+                background-color: #004d40; /* Fondo verde oscuro para el pie de página */
+                color: #ffffff; /* Texto blanco en el footer */
+            }
+
+            .card, .dropdown-menu {
+                background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente para cards y dropdowns */
+                border-radius: 10px; /* Bordes redondeados */
+            }
+
+            .card-header {
+                background-color: #00796b; /* Azul acuático para encabezados */
+                color: white;
+            }
+
+            .card-body {
+                color: #00796b; /* Texto verde para un contraste suave */
+            }
+
+            .btn-primary {
+                background-color: #00bcd4; /* Botones en azul aqua */
+                border: none;
+            }
+
+            .btn-primary:hover {
+                background-color: #00796b; /* Cambio a un azul más oscuro en hover */
+            }
+
+            .navbar-nav .nav-item img {
+                border-radius: 50%;
+                border: 2px solid #ffffff;
+            }
+
+            section#main-header {
+                background-color: #00bcd4; /* Fondo azul para el header */
+                color: #ffffff;
+            }
+
+            /* Asegurar que el texto en los botones sea blanco y legible */
+            .btn-dark {
+                color: white;
+            }
+
+            /* Agregar sombra suave al texto en el header y otros elementos */
+            .header h1, .footer p {
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra para mejorar la legibilidad */
+            }
+        </style>
     </head>
+
     <body>
         <header th:fragment="header" class="header">
-            <nav class="navbar navbar-expand-sm navbar-light bg-info p-0">
+            <nav class="navbar navbar-expand-sm navbar-light">
                 <div class="container">
-                    <a th:href="@{/}" class="navbar-brand ">[[#{aplicacion.titulo}]]</a>
+                    <a th:href="@{/}" class="navbar-brand">[[#{aplicacion.titulo}]]</a>
                     <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <ul sec:authorize="hasRole('ROLE_VENDEDOR')"
-                            class="navbar-nav">
+                        <ul sec:authorize="hasRole('ROLE_VENDEDOR')" class="navbar-nav">
                             <li class="nav-item px-2"><a class="nav-link" th:href="@{/categoria/listado}">[[#{plantilla.categorias}]]</a></li>
                             <li class="nav-item px-2"><a class="nav-link" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a></li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" 
-                                   data-bs-toggle="dropdown" 
-                                   href="#" 
-                                   role="button" 
-                                   aria-expanded="false">[[#{plantilla.extras}]]</a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">[[#{plantilla.extras}]]</a>
+                                <ul class="dropdown-menu dropdown-menu">
                                     <li><a class="dropdown-item" th:href="@{/pruebas/listado}">[[#{plantilla.asociaciones}]]</a></li>
                                     <li><a class="dropdown-item" th:href="@{/pruebas/listado2}">[[#{plantilla.consultas}]]</a></li>
                                     <li><a class="dropdown-item" th:href="@{/reportes/principal}">[[#{plantilla.reportes}]]</a></li>
                                 </ul>
                             </li>
-                            <li sec:authorize="hasRole('ROLE_ADMIN')"
-                                class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" 
-                                   data-bs-toggle="dropdown" 
-                                   href="#" 
-                                   role="button" 
-                                   aria-expanded="false">[[#{plantilla.admin}]]</a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" th:href="@{/usuario/listado}">[[#{plantilla.usuarios}]]</a></li>                                    
-                                    <li class="submenu submenu-md dropend">
-                                        <a class="dropdown-item dropdown-toggle" role="button" 
-                                           data-bs-toggle="dropdown" aria-expanded="false"
-                                           onclick="event.stopPropagation();">
-                                            [[#{plantilla.seguridad}]]
-                                        </a>
-                                        <ul class="dropdown-menu">                                            
-                                            <li><a class="dropdown-item" th:href="@{/role/listado}">[[#{plantilla.troles}]]</a></li>
-                                            <li><a class="dropdown-item" th:href="@{/usuario_role/asignar}">[[#{plantilla.permisos}]]</a></li>
-                                            <li><a class="dropdown-item" th:href="@{/ruta/listado}">[[#{plantilla.rutas}]]</a></li>
-                                        </ul>
-                                    </li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">[[#{plantilla.admin}]]</a>
+                                <ul class="dropdown-menu dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/usuario/listado}">[[#{plantilla.usuarios}]]</a></li>
                                     <li><a class="dropdown-item" th:href="@{/constante/listado}">[[#{plantilla.constantes}]]</a></li>
                                 </ul>
                             </li>
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" 
-                                   data-bs-toggle="dropdown" 
-                                   href="#" role="button" 
-                                   aria-expanded="false">[[#{plantilla.idioma}]]</a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">[[#{plantilla.idioma}]]</a>
+                                <ul class="dropdown-menu dropdown-menu">
                                     <li><a class="dropdown-item" th:href="@{/(lang=es)}">Español</a></li>
                                     <li><a class="dropdown-item" th:href="@{/(lang=en)}">English</a></li>
                                     <li><a class="dropdown-item" th:href="@{/(lang=fr)}">Française</a></li>
@@ -82,44 +140,34 @@
                                 </ul>
                             </li>
                         </ul>
-                        <div id="resultBlock">
-                        </div>
-                        <ul sec:authorize='!isAuthenticated()'
-                            class='navbar-nav'> 
+                        <ul sec:authorize='!isAuthenticated()' class='navbar-nav'> 
                             <li class='nav-item px-2'>
-                                <a class='nav-menu-link nav-link'
-                                   th:href='@{/login}'>
+                                <a class='nav-menu-link nav-link' th:href='@{/login}'>
                                     <i class='fas fa-sign-in-alt'></i>
                                 </a>
                             </li>
                         </ul>
-                        <ul sec:authorize='isAuthenticated()'
-                            class='navbar-nav'> 
+                        <ul sec:authorize='isAuthenticated()' class='navbar-nav'> 
                             <li class='nav-item px-2 my-auto text-white'>
-                                <img th:src="@{${session.usuarioImagen}}"
-                                     alt="..."
-                                     height="40"
-                                     class="rounded-circle"/>
+                                <img th:src="@{${session.usuarioImagen}}" alt="..." height="40" class="rounded-circle"/>
                                 <span sec:authentication='name'></span>
                             </li>
                             <li class='nav-item'>
-                                <form method="post"
-                                      th:action="@{/logout}">
+                                <form method="post" th:action="@{/logout}">
                                     <button class="btn btn-dark">
                                         <i class="fas fa-sign-out-alt"></i>
                                     </button>
                                 </form>
                             </li>
                         </ul>
-
                     </div>
                 </div>
             </nav>
-            <section id="main-header" class="py-2 bg-primary text-red">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h1><i class="fas fa-cog"></i> [[#{plantilla.suTienda}]]</h1>
+            <section id="main-header" class="py-2">
+                <div class="container-fluid">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-md-6 text-center">
+                            <h1><i class="fa-solid fa-person-swimming"></i> [[#{plantilla.suTienda}]]</h1>
                         </div>
                     </div>
                 </div>
@@ -127,7 +175,7 @@
 
         </header>
 
-        <footer th:fragment="footer" class="p-2 mt-5 bg-info text-white">
+        <footer th:fragment="footer" class="p-2 mt-5 footer">
             <p class="text-center lead">&COPY;[[#{plantilla.derechos}]]</p>
         </footer>
     </body>

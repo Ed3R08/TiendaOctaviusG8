@@ -10,20 +10,22 @@
     <body>
         <!-- 1 Sección para crear los tabs que tienen las categorias...-->
         <section th:fragment="tabs">
-            <div class="row p-2">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link active" 
-                           href="/pruebas/listado">[[#{pruebas.todas}]]</a>
-                    </li>
-                    <li th:each="c : ${categorias}" class="nav-item">
-                        <a class="nav-link" 
-                           th:href="@{/pruebas/listado/}+${c.idCategoria}">
-                            [[${c.descripcion}]]</a>
-                    </li>
-                </ul>
-            </div>
-        </section>
+    <div class="row p-2">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" 
+                   href="/pruebas/listado" style="background-color: #92f0e9;">[[#{pruebas.todas}]]</a>
+            </li>
+            <li th:each="c : ${categorias}" class="nav-item">
+                <a class="nav-link" 
+                   th:href="@{/pruebas/listado/}+${c.idCategoria}" style=" background-color: #92f0e9;">
+                    [[${c.descripcion}]]
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>
+
         <!-- 2 Sección para crear las tarjetas de los productos...-->
         <section th:fragment="tarjetas">
             <div class="row row-cols-4 p-2">
