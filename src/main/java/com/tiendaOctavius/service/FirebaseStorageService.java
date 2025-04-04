@@ -30,7 +30,7 @@ public class FirebaseStorageService {
     final String rutaJsonFile = "firebase";
 
     //El nombre del archivo Json
-    final String archivoJsonFile = "tienda-651a4-firebase-adminsdk-fbsvc-2e1e701c17" + ".json";
+    final String archivoJsonFile = "tienda-651a4-firebase-adminsdk-fbsvc-483b08d748.json";
 
     public String cargaImagen(MultipartFile archivoLocalCliente, String carpeta, Long id) {
         try {
@@ -56,18 +56,32 @@ public class FirebaseStorageService {
         }
     }
 
-    private String uploadFile(File file, String carpeta, String fileName) throws IOException {
-        //Se define el lugar y acceso al archivo .jasper
-        ClassPathResource json = new ClassPathResource(rutaJsonFile + File.separator + archivoJsonFile);
-        BlobId blobId = BlobId.of(BucketName, rutaSuperiorStorage + "/" + carpeta + "/" + fileName);
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
-
-        Credentials credentials = GoogleCredentials.fromStream(json.getInputStream());
-        Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
-        storage.create(blobInfo, Files.readAllBytes(file.toPath()));
-        String url = storage.signUrl(blobInfo, 3650, TimeUnit.DAYS, SignUrlOption.signWith((ServiceAccountSigner) credentials)).toString();
-        return url;
+  private String uploadFile(File file, String carpeta, String fileName) throws IOException {
+    // Construye la ruta del archivo JSON
+    String jsonFilePath = rutaJsonFile + File.separator + archivoJsonFile;
+    System.out.println("Buscando archivo de credenciales en: " + jsonFilePath);
+    
+    // Crea el recurso de clase
+    ClassPathResource json = new ClassPathResource(jsonFilePath);
+    
+    // Verifica si el archivo existe
+    if (!json.exists()) {
+        System.err.println("El archivo de credenciales no se encontró en: " + jsonFilePath);
+        throw new IOException("Archivo de credenciales Firebase no encontrado");
+    } else {
+        System.out.println("Archivo de credenciales encontrado correctamente.");
     }
+    
+    BlobId blobId = BlobId.of(BucketName, rutaSuperiorStorage + "/" + carpeta + "/" + fileName);
+    BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
+
+    Credentials credentials = GoogleCredentials.fromStream(json.getInputStream());
+    Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
+    storage.create(blobInfo, Files.readAllBytes(file.toPath()));
+    String url = storage.signUrl(blobInfo, 3650, TimeUnit.DAYS, SignUrlOption.signWith((ServiceAccountSigner) credentials)).toString();
+    return url;
+}
+
 
     //Método utilitario que convierte el archivo desde el equipo local del usuario a un archivo temporal en el servidor
     private File convertToFile(MultipartFile archivoLocalCliente) throws IOException {
