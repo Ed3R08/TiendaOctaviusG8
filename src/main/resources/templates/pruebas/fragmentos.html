@@ -38,16 +38,12 @@
                         <figcaption class="d-flex justify-content-between">
                             <span>¢[[${p.precio}]]</span>
                             <span>([[${p.existencias}]])</span>
+                             
                         </figcaption>
                     </figure>
                     <div class="card-header">
                         <h5 class="card-title">[[${p.descripcion}]]</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">[[${p.detalle}]]</p>
-                    </div>
-                    <div clas="card-footer">
-                        <form>
+                       <form>
                             <input type="hidden"
                                    name="idProducto"
                                    th:value="${p.idProducto}"/>
@@ -59,7 +55,13 @@
                                     class="btn btn-primary">
                                 <i class="fas fa-cart-arrow-down"></i>
                             </button>
-                        </form>    
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">[[${p.detalle}]]</p>
+                    </div>
+                    <div clas="card-footer">
+                        
 
 
                     </div>
