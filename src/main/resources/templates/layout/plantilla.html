@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/199/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:fragment="head">
@@ -19,88 +19,69 @@
         <!-- Estilos personalizados -->
         <style>
             body {
-                background-color: #e0f7fa; /* Fondo acuático suave */
-                color: #004d40; /* Texto oscuro en general para buen contraste */
+                background-color: #e0f7fa;
+                color: #004d40;
             }
-
             .navbar {
-                background-color: #00796b; /* Azul acuático para la barra de navegación */
+                background-color: #00796b;
             }
-
             .navbar-brand, .nav-link {
-                color: #ffffff !important; /* Texto blanco en la navbar */
+                color: #ffffff !important;
             }
-
             .navbar-toggler-icon {
-                background-color: #ffffff; /* Icono del menú hamburguesa en blanco */
+                background-color: #ffffff;
             }
-
             .navbar-nav .nav-item:hover {
-                background-color: #004d40; /* Sombra en el hover */
+                background-color: #004d40;
             }
-
             .header {
-                background: linear-gradient(to right, #009688, #00bcd4); /* Degradado de azul y aqua */
+                background: linear-gradient(to right, #009688, #00bcd4);
                 color: white;
                 border-radius: 10px;
-                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
                 padding: 20px;
             }
-
             .nav-link:hover {
-                color: #80deea; /* Color más claro en el hover */
+                color: #80deea;
             }
-
             .footer {
-                background-color: #004d40; /* Fondo verde oscuro para el pie de página */
-                color: #ffffff; /* Texto blanco en el footer */
+                background-color: #004d40;
+                color: #ffffff;
             }
-
             .card, .dropdown-menu {
-                background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente para cards y dropdowns */
-                border-radius: 10px; /* Bordes redondeados */
+                background-color: rgba(255, 255, 255, 0.9);
+                border-radius: 10px;
             }
-
             .card-header {
-                background-color: #00796b; /* Azul acuático para encabezados */
+                background-color: #00796b;
                 color: white;
             }
-
             .card-body {
-                color: #00796b; /* Texto verde para un contraste suave */
+                color: #00796b;
             }
-
             .btn-primary {
-                background-color: #00bcd4; /* Botones en azul aqua */
+                background-color: #00bcd4;
                 border: none;
             }
-
             .btn-primary:hover {
-                background-color: #00796b; /* Cambio a un azul más oscuro en hover */
+                background-color: #00796b;
             }
-
             .navbar-nav .nav-item img {
                 border-radius: 50%;
                 border: 2px solid #ffffff;
             }
-
             section#main-header {
-                background-color: #00bcd4; /* Fondo azul para el header */
+                background-color: #00bcd4;
                 color: #ffffff;
             }
-
-            /* Asegurar que el texto en los botones sea blanco y legible */
             .btn-dark {
                 color: white;
             }
-
-            /* Agregar sombra suave al texto en el header y otros elementos */
             .header h1, .footer p {
-                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra para mejorar la legibilidad */
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             }
         </style>
     </head>
-
     <body>
         <header th:fragment="header" class="header">
             <nav class="navbar navbar-expand-sm navbar-light">
@@ -115,24 +96,22 @@
                             <li class="nav-item px-2"><a class="nav-link" th:href="@{/producto/listado}">[[#{plantilla.productos}]]</a></li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">[[#{plantilla.extras}]]</a>
-                                <ul class="dropdown-menu dropdown-menu">
+                                <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" th:href="@{/pruebas/listado}">[[#{plantilla.asociaciones}]]</a></li>
                                     <li><a class="dropdown-item" th:href="@{/pruebas/listado2}">[[#{plantilla.consultas}]]</a></li>
-                                   <!-- <li><a class="dropdown-item" th:href="@{/reportes/principal}">[[#{plantilla.reportes}]]</a></li> -->
                                 </ul>
                             </li>
                             <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">[[#{plantilla.admin}]]</a>
-                                <ul class="dropdown-menu dropdown-menu">
+                                <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" th:href="@{/usuario/listado}">[[#{plantilla.usuarios}]]</a></li>
-                                    <!--<li><a class="dropdown-item" th:href="@{/constante/listado}">[[#{plantilla.constantes}]]</a></li>-->
                                 </ul>
                             </li>
                         </ul>
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">[[#{plantilla.idioma}]]</a>
-                                <ul class="dropdown-menu dropdown-menu">
+                                <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" th:href="@{/(lang=es)}">Español</a></li>
                                     <li><a class="dropdown-item" th:href="@{/(lang=en)}">English</a></li>
                                     <li><a class="dropdown-item" th:href="@{/(lang=fr)}">Française</a></li>
@@ -163,18 +142,22 @@
                     </div>
                 </div>
             </nav>
-            <section id="main-header" class="py-2">
-                <div class="container-fluid">
-                    <div class="row justify-content-center align-items-center">
-                        <div class="col-md-6 text-center">
-                            <h1><i class="fa-solid fa-person-swimming"></i> [[#{plantilla.suTienda}]]</h1>
+            <section id="main-header" class="py-2 bg-success text-white">
+                <section id="main-header" class="py-2 bg-success text-red">
+                    <div class="container-fluid">
+                        <div th:replace="~{carrito/fragmentos :: verCarrito}"></div>
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-md-6 text-center">
+                                <!-- Aca estoy tratando de ingresar el boton pero no me funciona noc q sera  -->
+                                
+
+                                <h1><i class="fa-solid fa-person-swimming"></i> [[#{plantilla.suTienda}]]</h1>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </section>
             </section>
-
         </header>
-
         <footer th:fragment="footer" class="p-2 mt-5 footer">
             <p class="text-center lead">&COPY;[[#{plantilla.derechos}]]</p>
         </footer>

@@ -3,6 +3,7 @@ package com.tiendaOctavius.service;
 import com.tiendaOctavius.domain.Producto;
 import com.tiendaOctavius.repository.ProductoRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,6 +45,8 @@ public class ProductoService {
         // Si producto.idProducto tiene algo... se modifica el registro
         productoRepository.save(producto);
     }
+
+
 
     
     @Transactional(readOnly = true)
