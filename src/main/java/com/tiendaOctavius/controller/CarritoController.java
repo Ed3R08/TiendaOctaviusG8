@@ -4,7 +4,8 @@ import com.tiendaOctavius.domain.Item;
 import com.tiendaOctavius.domain.Producto;
 import com.tiendaOctavius.service.ItemService;
 import com.tiendaOctavius.service.ProductoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,64 +15,89 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/carrito")
+@RequiredArgsConstructor
 public class CarritoController {
-    
-    @Autowired
-    private ItemService itemService;
-    @Autowired
-    private ProductoService productoService;
-    
-    
+
+    private final ItemService itemService;
+    private final ProductoService productoService;
+
+    // ===============================
+    // 1. Agregar un producto al carrito
+    // ===============================
     @GetMapping("/agregar/{idProducto}")
-    public ModelAndView agregar(Model model, Item item){
-        Item item2 = itemService.getItem(item);
-        
-        //Si el producto aun no esta en la lista se recupera la info de la
-        //tabla producto
-        if (item2==null){
-           //si no esta se busca el producto y se crea item2
-           Producto p = productoService.getProducto(item);
-           item2 = new Item(p);
+    public ModelAndView agregar(Model model, Item item) {
+        // ¿El producto ya está en el carrito?
+        Item itemExistente = itemService.getItem(item);
+
+        if (itemExistente == null) {
+            // Si no estaba, lo creamos a partir de la BD
+            Producto p = productoService.getProducto(item);
+            itemExistente = new Item(p);
         }
-        //se crea o actualiza el item (producto) en la lista
-        itemService.save(item2);
-        
+        // Aumentamos o agregamos
+        itemService.save(itemExistente);
+
+        // Datos rápidos para el fragmento del header
         var lista = itemService.getItems();
-        var totalCompra = itemService.getTotal();
-        model.addAttribute("listaItems",lista);
-        model.addAttribute("totalCompra",totalCompra);
-        model.addAttribute("totalProductos",lista.size());
-        
+        double totalCompra = itemService.getTotal();
+
+        model.addAttribute("listaItems", lista);
+        model.addAttribute("totalCompra", totalCompra);
+        model.addAttribute("totalProductos", lista.size());
+
+        // Se devuelve solo el fragmento :: verCarrito
         return new ModelAndView("/carrito/fragmentos :: verCarrito");
     }
-    
+
+    // Tipo de cambio (colones → dólares)
+    @Value("${tcambio:540}")
+    private double tCambio;
+
+    // ===============================
+    // 2. Mostrar el carrito completo
+    // ===============================
     @GetMapping("/listado")
     public String listado(Model model) {
+
         var lista = itemService.getItems();
-        var totalCompra = itemService.getTotal();
-        model.addAttribute("listaItems", lista);
-        model.addAttribute("totalCompra",totalCompra);
+        double totalColones = itemService.getTotal();             // total en ₡
+        double totalDolares = Math.round((totalColones / tCambio) * 100) / 100.0;
+
+        model.addAttribute("listaItems",     lista);
+        model.addAttribute("totalProductos", lista == null ? 0 : lista.size());
+        model.addAttribute("carritoTotal",   totalColones); 
+        model.addAttribute("totalCompra",    totalColones);
+        model.addAttribute("totalDolares",   totalDolares);
+        model.addAttribute("precioVenta",    tCambio);             // ¢ por $
+
         return "/carrito/listado";
     }
 
+    // ===============================
+    // 3. Eliminar un producto del carrito
+    // ===============================
     @GetMapping("/eliminar/{idProducto}")
-    public String eliminar(Model model, Item item) {
+    public String eliminar(Item item) {
         itemService.delete(item);
         return "redirect:/carrito/listado";
     }
 
+    // ===============================
+    // 4. Editar un ítem (mostrar formulario)
+    // ===============================
     @GetMapping("/modificar/{idProducto}")
     public String modificar(Model model, Item item) {
-        item = itemService.getItem(item);
-        model.addAttribute("item",item);
+        item = itemService.getItem(item);          // recupera del carrito
+        model.addAttribute("item", item);
         return "/carrito/modifica";
     }
-    
+
+    // ===============================
+    // 5. Guardar cambios de cantidad
+    // ===============================
     @PostMapping("/guardar")
     public String guardar(Item item) {
         itemService.update(item);
         return "redirect:/carrito/listado";
     }
-
-    
 }

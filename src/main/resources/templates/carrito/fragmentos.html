@@ -2,19 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
-    <head th:fragment="head">
+    <head th:replace="~{layout/plantilla :: head}">
         <title>TiendaOctavius</title>
-        <meta charset="UTF-8"/>        
+                <meta charset="UTF-8"/>        
     </head>
     <body>
 
-        <!-- Fragmento para mostrar el botón del carrito en la barra (si el carrito no está vacío) -->
-        <div th:fragment="verCarrito" th:unless="${#lists.isEmpty(listaItems)}">
-            <form action="/carrito/listado">
-                <button class="btn btn-light" type="submit">
+        <!-- 1Este fragmento muestra un boton en la barra del menu para ver el contenido del carrito de compras-->
+        <div th:fragment="verCarrito"
+             <!--th:unless="${#lists.isEmpty(listaItems)}">-->
+            <form action ="/carrito/listado">
+                <button class="btn btn-light"
+                        type="submit">
                     <i class="fas fa-cart-plus"></i> ([[${totalProductos}]])¢[[${totalCompra}]]
+
                 </button>
             </form>
+
         </div>
 
         <!-- 2 Sección para mostrar los items del carrito de compras -->
@@ -67,31 +71,41 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="card text-center bg-primary text-white mb-3">
+                <div class="card text-center bg-ligth text-white mb-3">
                     <div class="card-body">
                         <h3>[[#{carrito.totalCompra}]]</h3>
-                        <h4 class="fs-4"> 
-                            ¢[[${totalCompra}]]
-                        </h4>
+                        <h4><i class="fas fa-money-bill-alt"></i> ¢[[${#numbers.formatDecimal(carritoTotal,1,'DEFAULT',2,'DEFAULT')}]]</h4>
+                        <h4><i class="far fa-money-bill-alt"></i> $[[${#numbers.formatDecimal(totalDolares,1,'DEFAULT',2,'DEFAULT')}]]</h4>
+                        <p>$1 = ¢[[${#numbers.formatDecimal(precioVenta,1,'DEFAULT',2,'DEFAULT')}]]</p>
                     </div>
-                </div>      
-                <div class="card text-center bg-success text-white mb-3">
+                </div>
+                <div class="card text-center bg-primary text-white mb-3">
                     <div class="card-body">
-                        <a th:href="@{/}"
-                           class="btn btn=success">
-                            <i class="fas fa-replay"></i> [[#{carrito.seguirComprando}]]
+                        <a th:href="@{/}" 
+                           class="btn btn-primary">
+                            <i class="fas fa-reply"></i> [[#{carrito.seguirComprando}]]
                         </a>
                     </div>
                 </div>
                 <div class="card text-center bg-info text-white mb-3">
                     <div class="card-body">
-                        <a th:href="@{/facturar/carrito}"
-                           class="btn btn=info">
-                            <i class="fas fa-fordward"></i> [[#{carrito.facturar}]]
-                        </a>
-
+                        <form action="/payment/facturar"
+                              method="post">
+                            <input type="hidden"
+                                   name='total'
+                                   th:value='${totalDolares}'/>
+                            <input type="hidden"
+                                   th:name="${_csrf.parameterName}"
+                                   th:value="${_csrf.token}" />
+                            <button class='btn btn-info'
+                                    type='submit'>
+                                <i class='fab fa-cc-paypal'></i> [[#{carrito.facturar}]]
+                            </button>
+                        </form>
                     </div>
                 </div>
+            </div>
+
         </section>
 
         <!-- Seccion para editar items -->
@@ -116,7 +130,7 @@
                 <div class="card">                     
                     <div class="card-body">
                         <figure>
-                            <img th:src="@{${item.rutaImagen}}" width="120"
+                            <img th:src="@{${item.rutaImagen}}" width="120">
                     </figure>
                     <form th:action="@{/carrito/guardar}"
                           method="post" 
