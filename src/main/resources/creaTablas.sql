@@ -206,7 +206,7 @@ INSERT INTO ruta_permit (patron) VALUES
   ('/js/**'),
   ('/webjars/**');
 ----------------------------------------------------------------------
---Se debe anadir de mas el de fav para el icono de la parte superior
+-- Se debe anadir de mas el de fav para el icono de la parte superior
 ----------------------------------------------------------------------
 INSERT INTO ruta_permit (patron) VALUES 
   ('/fav/**')
