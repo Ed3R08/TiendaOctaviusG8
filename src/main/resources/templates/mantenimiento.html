@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Importar el fragmento <head> desde plantilla.html -->
+<head th:replace="~{layout/plantilla :: head}"></head>
+
+<body>
+    <!-- Cabecera común -->
+    <div th:replace="~{layout/plantilla :: header}"></div>
+
+    <!-- Contenido específico de mantenimiento -->
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Agenda tu Mantenimiento</h2>
+
+        <!-- Mensaje de confirmación -->
+        <div th:if="${mensaje}" class="alert alert-success" role="alert">
+            <span th:text="${mensaje}"></span>
+        </div>
+
+        <form th:action="@{/mantenimiento/agendar}" method="post">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre completo</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tu nombre" required />
+            </div>
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="correo" name="correo" placeholder="tu@correo.com" required />
+            </div>
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha y hora del Servicio</label>
+                <input type="datetime-local" class="form-control" id="fecha" name="fecha" required />
+                <div class="form-text">Selecciona la fecha y hora para tu servicio.</div>
+            </div>
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción del problema</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="4" placeholder="Detalles del mantenimiento" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Agendar</button>
+        </form>
+    </div>
+
+    <!-- Pie de página común -->
+    <div th:replace="~{layout/plantilla :: footer}"></div>
+</body>
+</html>
